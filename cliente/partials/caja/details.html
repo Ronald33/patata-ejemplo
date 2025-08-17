@@ -1,0 +1,74 @@
+<div class="modal-header bg-primary">
+    <h3 class="modal-title text-white">Movimientos de la caja</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="terminal" class="control-label">Terminal</label>
+                <input type="text" name="terminal" id="terminal" class="form-control" ng-value="vm.caja.terminal.nombre" disabled />
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="apertura" class="control-label">Fecha de apertura</label>
+                        <input type="text" name="apertura" id="apertura" class="form-control" ng-value="vm.caja.apertura | myDateTime" disabled />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="cierre" class="control-label">Fecha de cierre</label>
+                        <input type="text" name="cierre" id="cierre" class="form-control" ng-value="vm.caja.cierre ? (vm.caja.cierre | myDateTime) : '&nbsp;'" disabled />
+                    </div>        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="aperturaUsuario" class="control-label">Usuario de apertura</label>
+                        <input type="text" name="aperturaUsuario" id="aperturaUsuario" class="form-control" ng-value="vm.caja.aperturaUsuario.persona | persona" disabled />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="cierreUsuario" class="control-label">Usuario de cierre</label>
+                        <input type="text" name="cierreUsuario" id="cierreUsuario" class="form-control" ng-value="vm.caja.cierre ? (vm.caja.cierreUsuario.persona | persona) : '&nbsp;'" disabled />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label class="control-label">Saldos</label>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-info">
+                            <th>Cuenta</th>
+                            <th>Saldo inicial</th>
+                            <th>Saldo actual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="saldo in vm.caja.saldos">
+                            <td>
+                                {{saldo.cuenta.nombre}}
+                            </td>
+                            <td class="text-right">
+                                {{saldo.inicial | myAmount}}
+                            </td>
+                            <td class="text-right">
+                                {{saldo.actual | myAmount}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <ng-include src="'partials/movimiento/list-table.html'"></ng-include>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-block" ng-click="vm.cerrar()">Cerrar</button>
+</div>

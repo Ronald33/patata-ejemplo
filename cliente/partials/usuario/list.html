@@ -1,0 +1,110 @@
+<div class="page-header clearfix">
+    <h1 class="pull-left header-reset page-title">Lista de usuarios</h1>
+
+    <div class="dropdown pull-right">
+        <button class="btn btn-default dropdown-toggle" type="button" id="gearMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="glyphicon glyphicon-cog"></span>
+            <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="gearMenu">
+            <li><a ui-sref="admin.usuario_form">Agregar usuario</a></li>
+            <!-- <li role="separator" class="divider"></li> -->
+        </ul>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover my-table" st-safe-src="vm.usuarios" st-table="vm.displayCollection" st-set-filter="myFilter">
+        <thead>
+            <tr class="bg-primary">
+                <th st-sort="id" st-sort-default="reverse" class="td-id">Id</th>
+                <th st-sort="usuario">Usuario</th>
+                <th st-sort="habilitado">Habilitado</th>
+                <th st-sort="__class">Tipo</th>
+                <th st-sort="persona">Persona</th>
+                <th class="four-icons">&nbsp;</th>
+            </tr>
+            <tr>
+                <th><input type="number" min="0" step="1" class="input-sm form-control" st-search="id" /></th>
+                <th>
+                    <input type="search" class="input-sm form-control" st-search="usuario" />
+                </th>
+                <th>
+                    <select class="form-control" st-search="habilitado">
+                        <option value="" selected>Seleccione</option>
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                    </select>
+                </th>
+                <th>
+                    <select class="form-control" st-search="__class">
+                        <option value="">Seleccione</option>
+                        <option ng-repeat="tipo in vm.tipos" value="{{tipo}}">{{tipo | capitalize}}</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="search" class="input-sm form-control" st-search="persona" />
+                </th>
+                <th>
+                    <button class="btn btn-xs btn-success" ng-click="vm.requestDataTable()">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="usuario in vm.displayCollection">
+                <td>{{usuario.id}}</td>
+                <td>
+                    {{usuario.usuario}}
+                </td>
+                <td>
+                    <span class="label label-{{usuario.habilitado ? 'success' : 'danger'}}">
+                        {{usuario.habilitado ? 'Habilitado' : 'Deshabilitado'}}
+                    </span>
+                </td>
+                <td>
+                    {{usuario.__class}}
+                </td>
+                <td>{{usuario.persona | persona}}</td>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <button title="Ver detalles del usuario {{usuario.id}}" class="btn btn-xs btn-info" ng-click="vm.ver(usuario)">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+                        </li>
+                        <li ng-show="usuario.habilitado">
+                            <button title="Deshabilitar al usuario {{usuario.id}}" class="btn btn-xs btn-default" ng-click="vm.deshabilitar(usuario)">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            </button>
+                        </li>
+                        <li ng-show="!usuario.habilitado">
+                            <button title="Habilitar al usuario {{usuario.id}}" class="btn btn-xs btn-primary" ng-click="vm.habilitar(usuario)">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            </button>
+                        </li>
+                        <li>
+                            <a title="Editar el usuario {{usuario.id}}" class="btn btn-xs btn-warning" ui-sref="admin.usuario_form({id: usuario.id})">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <button title="Eliminar usuario #{{usuario.id}}" class="btn btn-xs btn-danger" ng-click="vm.eliminar(usuario)">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" class="text-center">
+                    <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="displayedPages"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

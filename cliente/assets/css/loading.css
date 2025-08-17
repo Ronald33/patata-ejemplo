@@ -1,0 +1,30 @@
+/* Loading */
+:root
+{
+    --sk-size: 80px;
+    --sk-color: #3498db;
+}
+
+#loader
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -40px;
+    margin-top: -40px;
+    cursor: wait;
+}
+
+#overlay
+{
+    position: fixed;
+    width: 100px;
+    height: 40px;
+    /* top: 0; */
+    /*left: 10px; */
+    right: 20px;
+    bottom: 20px;
+    z-index: 1111; /* Specify a stack order in case you're using a different order for other elements */
+    /* overflow: hidden; */
+}
+/* End Loading */

@@ -1,0 +1,35 @@
+@startuml usuarios
+
+title
+Módulo de usuarios
+end title
+scale 1
+
+left to right direction
+
+"Administrador" as Administrador
+"Operador" as Operador
+
+rectangle {
+
+    package "Gestión de usuarios" {
+        "Listar usuarios" as (listar-usuarios)
+        "Agregar usuarios" as (agregar-usuarios)
+        "Habilitar y deshabilitar usuarios" as (habilitar-deshabilitar-usuarios)
+        "Editar usuarios" as (editar-usuarios)
+    }
+}
+
+note right of (editar-usuarios)
+    El Administrador puede editar cualquier usuario.
+    El Operador solo puede editar su propio usuario.
+end note
+
+Administrador --> (listar-usuarios)
+Administrador --> (agregar-usuarios)
+Administrador --> (editar-usuarios)
+Administrador --> (habilitar-deshabilitar-usuarios)
+
+Operador --> (editar-usuarios)
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml otros
+
+title
+Otros
+end title
+scale 1
+
+left to right direction
+
+"Administrador" as Administrador
+"Operador" as Operador
+
+rectangle {
+
+    package "Otros" {
+        "Gestionar terminales" as (gestionar-terminales)
+        "Gestionar cuentas" as (gestionar-cuentas)
+    }
+
+    package "Seguridad" {
+        "Ver logs" as (ver-logs)
+    }
+}
+
+note right of (gestionar-terminales)
+    Permite habilitar y deshabilitar el terminal.
+end note
+
+Administrador --> (gestionar-terminales)
+Administrador --> (gestionar-cuentas)
+Administrador --> (ver-logs)
+
+@enduml

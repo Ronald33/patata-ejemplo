@@ -1,0 +1,124 @@
+<div class="page-header clearfix">
+    <h1 class="pull-left header-reset page-title">Lista de cajas</h1>
+
+    <div class="dropdown pull-right">
+        <button class="btn btn-default dropdown-toggle" type="button" id="gearMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="glyphicon glyphicon-cog"></span>
+            <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="gearMenu">
+            <li><a href="" ng-click="vm.abrirForm()">Agregar caja</a></li>
+            <!-- <li role="separator" class="divider"></li> -->
+        </ul>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover my-table" st-safe-src="vm.cajas" st-table="vm.displayCollection" st-set-filter="myFilter">
+        <thead>
+            
+            <tr class="bg-primary">
+                <th st-sort="id" st-sort-default="reverse" class="td-id" rowspan="2">ID</th>
+                <th st-sort="terminal.nombre" rowspan="2">Terminal</th>
+                <th colspan="2">Apertura</th>
+                <th colspan="2">Cierre</th>
+                
+                <th class="two-icons" rowspan="2">&nbsp;</th>
+            </tr>
+            <tr class="bg-primary">
+                <th st-sort="aperturaUsuario.nombre">Usuario</th>
+                <th st-sort="apertura">Fecha</th>
+                <th st-sort="cierreUsuario.nombre">Usuario</th>
+                <th st-sort="cierre">Fecha</th>
+            </tr>
+            <tr>
+                <th><input type="number" min="0" step="1" class="input-sm form-control" st-search="id" /></th>
+                <th>
+                    <select class="form-control" id="terminal" ng-model="vm.terminal" ng-options="terminal as terminal.nombre for terminal in vm.terminales | orderBy: 'id' track by terminal.id" st-search="terminal.id">
+                        <option value="">Seleccione</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="search" class="input-sm form-control" st-search="aperturaUsuario.persona" />
+                </th>
+                <th>
+                    <input type="hidden" ng-model="vm.apertura" st-date-search="apertura" />
+                    <div class="input-group input-sm">
+                        <input date-range-picker options="daterangepicker.opts.range" class="form-control date-picker" type="text" ng-model="vm.apertura" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="resetDateRange(vm, 'apertura')">
+                                <span class="glyphicon glyphicon-ban-circle"></span>
+                            </button>
+                        </span>
+                    </div>
+                </th>
+                <th>
+                    <input type="search" class="input-sm form-control" st-search="cierreUsuario.persona" />
+                </th>
+                
+                <th>
+                    <input type="hidden" ng-model="vm.cierre" st-date-search="cierre" />
+                    <div class="input-group input-sm">
+                        <input date-range-picker options="daterangepicker.opts.range" class="form-control date-picker" type="text" ng-model="vm.cierre" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="resetDateRange(vm, 'cierre')">
+                                <span class="glyphicon glyphicon-ban-circle"></span>
+                            </button>
+                        </span>
+                    </div>
+                </th>
+                
+                <th >
+                    <button class="btn btn-xs btn-success" ng-click="vm.requestDataTable()">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="caja in vm.displayCollection">
+                <td>
+                    {{caja.id}}
+                </td>
+                <td>
+                    {{caja.terminal.nombre}}
+                </td>
+                <td>
+                    {{caja.aperturaUsuario.persona | persona}}
+                </td>
+                <td>
+                    {{caja.apertura | myDateTime}}
+                </td>
+                <td>
+                    {{caja.cierreUsuario.persona | persona}}
+                </td>
+                
+                <td>
+                    {{caja.cierre | myDateTime}}
+                </td>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <button title="Ver detalles de Caja {{caja.id}}" class="btn btn-xs btn-info" ng-click="vm.ver(caja)">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+                        </li>
+                        <li>
+                            <button title="Cerrar Caja {{caja.id}}" class="btn btn-xs btn-default" ng-click="vm.cerrar(caja)" ng-disabled="caja.cierre">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+			<tr>
+				<td colspan="6" class="text-center">
+					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="displayedPages"></div>
+				</td>
+			</tr>
+		</tfoot>
+    </table>
+</div>

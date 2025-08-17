@@ -1,0 +1,20 @@
+<div id="wrapper">
+
+	<ng-include src="'menu.html'"></ng-include>
+
+	<!-- Page Content -->
+	<div id="page-wrapper" ng-class="{'force-ml-0': _usuario.__class == 'Operador'}">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<ui-view></ui-view>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
+	</div>
+	<!-- /#page-wrapper -->
+
+</div>

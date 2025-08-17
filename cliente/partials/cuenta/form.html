@@ -1,0 +1,21 @@
+<form name="form" ng-submit="vm.guardar()">
+    <div class="modal-header bg-primary">
+        <h3 class="modal-title text-white">{{vm.action}} cuenta</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="nombre" class="control-label">
+                Nombre<span class="text-danger">*</span>
+            </label>
+            <input type="text" name="nombre" id="nombre" class="form-control" ng-model="vm.cuenta.nombre" minlength="1" maxlength="32" required />
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left" ng-click="vm.cerrar()">Cerrar</button>
+        <button type="submit" class="btn btn-success pull-right" ng-disabled="form.$invalid">Guardar</button>
+    </div>
+    <div class="container-fluid">
+        <show-errors errors="vm.errors"></show-errors>
+    </div>
+</form>

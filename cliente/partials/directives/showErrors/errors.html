@@ -1,0 +1,6 @@
+<div ng-repeat="error in errors" class="alert alert-danger errors">
+	El campo <b>{{error.name}}</b> tiene los siguientes errores:
+	<ul>
+		<li ng-repeat="message in error.messages">{{message}}</li>
+	</ul>
+</div>

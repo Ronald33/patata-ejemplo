@@ -1,0 +1,20 @@
+<div class="page-header clearfix">
+    <h1 class="pull-left header-reset page-title">Lista de movimientos</h1>
+
+    <div class="dropdown pull-right">
+        <button class="btn btn-default dropdown-toggle" type="button" id="gearMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="glyphicon glyphicon-cog"></span>
+            <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="gearMenu">
+            <li><a href="" ng-click="vm.abrirForm()">Agregar movimiento</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="" ng-click="vm.generarPdf(vm.displayCollection)">Generar PDF</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="" ng-click="vm.generarXlsx(vm.displayCollection)">Generar XLSX</a></li>
+        </ul>
+    </div>
+</div>
+
+<ng-include src="'partials/movimiento/list-table.html'"></ng-include>

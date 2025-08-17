@@ -1,0 +1,42 @@
+<form name="form" ng-submit="vm.guardar()">
+    <div class="modal-header bg-primary">
+        <h3 class="modal-title text-white">{{vm.action}} movimiento</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="tipo" class="control-label">Tipo<span class="text-danger">*</span></label>
+            <div class="btn-group btn-group-justified">
+                <label ng-repeat="tipo in vm.tipos_de_movimiento" class="btn btn-default text-capitalize" ng-model="vm.movimiento.tipo" uib-btn-radio="'{{tipo}}'">{{tipo | capitalize}}</label>
+            </div>
+        </div>
+        <div class="form-group" ng-if="_usuario.__class == 'Administrador'">
+            <label for="caja" class="control-label">
+                Caja<span class="text-danger">*</span>
+            </label>
+            <select name="caja" id="caja" class="form-control" ng-model="vm.caja" ng-options="caja as caja.terminal.nombre for caja in vm.cajas track by caja.id" required ng-change="vm.updateCuentas()">
+                <option value="">Seleccione una caja</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="cuenta" class="control-label">Cuenta<span class="text-danger">*</span></label>
+            <select name="cuenta" id="cuenta" class="form-control" ng-model="vm.movimiento.cuenta" ng-options="cuenta as cuenta.nombre for cuenta in vm.cuentas track by cuenta.id" required autofocus>
+                <option value="">Seleccione una cuenta</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="monto" class="control-label">Monto<span class="text-danger">*</span></label>
+            <input type="number" step="0.01" name="monto" id="monto" class="form-control" ng-model="vm.movimiento.monto" required />
+        </div>
+        <div class="form-group">
+            <label for="descripcion" class="control-label">Descripcion</label>
+            <input type="text" name="descripcion" id="descripcion" class="form-control" ng-model="vm.movimiento.descripcion" minlength="2" maxlength="256" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left" ng-click="vm.cerrar()">Cerrar</button>
+        <button type="submit" class="btn btn-success pull-right" ng-disabled="form.$invalid">Guardar</button>
+    </div>
+    <div class="container-fluid">
+        <show-errors errors="vm.errors"></show-errors>
+    </div>
+</form>

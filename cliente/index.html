@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="app">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		
+		<title>{{$state.current.title}}</title>
+		
+		<!-- Styles -->
+		<link href="assets/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="assets/node_modules/bootswatch/spacelab/bootstrap.min.css" rel="stylesheet" />
+		<link href="assets/node_modules/metismenu/dist/metisMenu.min.css" rel="stylesheet" />
+		<link href="assets/node_modules/spinkit/spinkit.min.css" rel="stylesheet" />
+		<link href="assets/node_modules/alertifyjs/build/css/alertify.min.css" rel="stylesheet" />
+		<link href="assets/node_modules/alertifyjs/build/css/themes/bootstrap.min.css" rel="stylesheet" />
+		<link href="assets/node_modules/izitoast/dist/css/iziToast.min.css" rel="stylesheet" />
+		<link href="assets/node_modules/ui-select/dist/select.min.css" rel="stylesheet" />
+		<link href="assets/node_modules/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+		<link href="assets/node_modules/angular-hotkeys/build/hotkeys.min.css" rel="stylesheet" />
+		<link href="assets/css/startmin.css" rel="stylesheet" />
+		<link href="assets/css/spacing.css" rel="stylesheet" />
+		<link href="assets/css/styles.css" rel="stylesheet" />
+		<link href="assets/css/loading.css" rel="stylesheet" />
+		<!-- End Styles -->
+	</head>
+	<body>
+		
+		<ui-view></ui-view>
+		<ng-include src="'loading.html'" ng-show="isLoading()"></ng-include>
+		
+		<!-- Vendor -->
+		<script src="assets/node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="assets/node_modules/bootstrap3/dist/js/bootstrap.min.js"></script>
+		<script src="assets/node_modules/metismenu/dist/metisMenu.min.js"></script>
+		<script src="assets/node_modules/alertifyjs/build/alertify.min.js"></script>
+		<script src="assets/node_modules/angular/angular.min.js"></script>
+		<script src="assets/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<script src="assets/node_modules/angular-ui-router/release/stateEvents.min.js"></script>
+		<script src="assets/node_modules/ngstorage/ngStorage.min.js"></script>
+		<script src="assets/node_modules/angular-resource/angular-resource.min.js"></script>
+		<script src="assets/node_modules/angular-animate/angular-animate.min.js"></script>
+		<script src="assets/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+		<script src="assets/node_modules/angular-auto-validate/dist/jcs-auto-validate.min.js"></script>
+		<script src="assets/node_modules/angular-smart-table/dist/smart-table.min.js"></script>
+		<script src="assets/node_modules/izitoast/dist/js/iziToast.min.js"></script>
+		<script src="assets/node_modules/ui-select/dist/select.min.js"></script>
+		<script src="assets/node_modules/moment/moment.js"></script>
+		<script src="assets/node_modules/moment/locale/es.js"></script>
+		<script src="assets/node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+		<script src="assets/node_modules/angular-daterangepicker/js/angular-daterangepicker.min.js"></script>
+		<script src="assets/node_modules/angular-hotkeys/build/hotkeys.min.js"></script>
+		<script src="assets/node_modules/xlsx/dist/xlsx.full.min.js"></script>
+		<script src="assets/node_modules/file-saver/dist/FileSaver.min.js"></script>
+		<script src="assets/node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+		<script src="assets/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
+		<!-- End Vendor -->
+		
+		<!-- App -->
+		<script src="assets/js/startmin.js"></script>
+		<script src="assets/js/app.js"></script>
+		<!-- End App -->
+
+		<!-- Constants -->
+		<script src="assets/js/constants.js"></script>
+		<!-- End Constants -->
+
+		<!-- Core -->
+		<script src="assets/js/run.js"></script>
+		<!-- End Core -->
+
+		<!-- Interceptors -->
+		<!-- <script src="assets/js/interceptors/globalInterceptor.js"></script> -->
+		<script src="assets/js/interceptors/patataInterceptor.js"></script>
+		<!-- End Interceptors -->
+
+		<!-- Resources -->
+		<script src="assets/js/resources.js"></script>
+		<!-- End Resources -->
+
+		<!-- Factories -->
+		
+		<!-- End Factories -->
+
+		<!-- Services -->
+		<script src="assets/js/services/helper.service.js"></script>
+		<script src="assets/js/services/auth.service.js"></script>
+		<script src="assets/js/services/dialog.service.js"></script>
+		<script src="assets/js/services/notification.service.js"></script>
+		<!-- End Services -->
+
+		<!-- Directives -->
+		 <script src="directives/ipersona/js/ipersona.js"></script>
+		<!-- End Directives -->
+
+		<!-- Directives -->
+		<script src="assets/js/directives/directives.js"></script>
+		<script src="assets/js/directives/showErrors.directive.js"></script>
+		<script src="assets/js/directives/skipValidation.directive.js"></script>
+		<!-- End Directives -->
+
+		<!-- Filters -->
+		<script src="assets/js/filters.js"></script>
+		<!-- End Filters -->
+		
+		<!-- Controllers -->
+		<script src="assets/js/controllers/LoginController.js"></script>
+		<script src="assets/js/controllers/MenuController.js"></script>
+		<script src="assets/js/controllers/CuentaListController.js"></script>
+		<script src="assets/js/controllers/CuentaFormController.js"></script>
+		<script src="assets/js/controllers/UsuarioListController.js"></script>
+		<script src="assets/js/controllers/UsuarioFormController.js"></script>
+		<script src="assets/js/controllers/TerminalListController.js"></script>
+		<script src="assets/js/controllers/TerminalFormController.js"></script>
+		<script src="assets/js/controllers/CajaListController.js"></script>
+		<script src="assets/js/controllers/CajaFormController.js"></script>
+		<script src="assets/js/controllers/MovimientoListController.js"></script>
+		<script src="assets/js/controllers/MovimientoFormController.js"></script>
+		<!-- End Controllers -->
+	</body>
+</html>

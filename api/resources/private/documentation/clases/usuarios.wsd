@@ -1,0 +1,46 @@
+@startuml usuarios
+
+title
+Módulo de usuarios
+end title
+scale 1
+
+class Persona
+{
+    -nombres: String
+    -apellidos: String
+    -documento: String
+    -email: String
+    -telefono: String
+    -direccion: String
+}
+
+abstract class Usuario
+{
+    #usuario: String
+    #contrasenha: String
+    #habilitado: Boolean
+}
+
+class Operador
+{
+    +getTerminal(): Terminal
+}
+
+class Administrador
+{
+
+}
+
+class Terminal
+{
+    -nombre: String
+    -habilitado: Boolean
+}
+
+Usuario --> Persona
+Operador --|> Usuario
+Administrador --|> Usuario
+Operador --> Terminal
+
+@enduml

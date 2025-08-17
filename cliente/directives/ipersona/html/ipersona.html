@@ -1,0 +1,22 @@
+<div class="form-group input-group">
+    <ui-select focus-on="ipersona" ng-model="vm.persona">
+        <ui-select-match allow-clear="true" placeholder="Ingrese datos de la persona">
+            <span ng-bind="$select.selected | personaWithDocument"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="item in (vm.personas | orderBy: 'nombres') track by item.id" minimum-input-length="2" refresh="vm.refresh($select.search)" refresh-delay="300">
+            <span ng-bind="item | personaWithDocument"></span>
+        </ui-select-choices>
+    </ui-select>
+    <input ng-if="vm.isRequired == 'true'" type="hidden" name="ipersona_input_hidden" ng-model="vm.persona.id" required />
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 7.5px 12px">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li><a href="javascript:;" ng-click="vm.detalles(vm.persona)" ng-class="{'disabled': !vm.persona}">Ver</a></li>
+            <li><a href="javascript:;" ng-click="vm.abrirForm(vm.persona)" ng-class="{'disabled': !vm.persona}">Editar</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="javascript:;" ng-click="vm.abrirForm()">Agregar una nueva persona</a></li>
+        </ul>
+    </div>
+</div>

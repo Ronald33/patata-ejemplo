@@ -1,0 +1,95 @@
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover my-table" st-pipe="vm.requestDataTable" st-table="vm.displayCollection">
+        <thead>
+            <tr class="bg-primary">
+                <th st-sort="id" st-sort-default="reverse" class="td-id">ID</th>
+                <th st-sort="monto" style="width: 50px;">Monto</th>
+                <th st-sort="tipo" style="width: 135px;">Tipo</th>
+                <th st-sort="fecha" style="width: 240px;">Fecha</th>
+                <th st-sort="cuenta" style="width: 135px;">Cuenta</th>
+                <th st-sort="persona">Usuario</th>
+                <th st-sort="terminal" ng-if="vm.showTerminal">Terminal</th>
+                <th st-sort="descripcion">
+                    Descripcion
+                    <button class="btn btn-xs btn-success pull-right" ng-click="vm.requestDataTable()">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </button>
+                </th>
+            </tr>
+            <tr>
+                <th><input type="number" min="0" step="1" class="input-sm form-control" st-search="id" /></th>
+                <th>
+                    <input type="number" step="1" min="0" class="input-sm form-control" st-search="monto" />
+                </th>
+                <th>
+                    <select class="form-control" st-search="tipo">
+                        <option value="">Seleccione</option>
+                        <option ng-repeat="tipo in vm.tipos" value="{{tipo}}">{{tipo | capitalize}}</option>
+                    </select>                   
+                </th>
+                <th>
+                    <input type="hidden" ng-model="vm.fecha" st-date-search="fecha" />
+                    <div class="input-group input-sm">
+                        <input date-range-picker options="daterangepicker.opts.range" class="form-control date-picker" type="text" ng-model="vm.fecha" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="resetDateRange(vm, 'fecha')">
+                                <span class="glyphicon glyphicon-ban-circle"></span>
+                            </button>
+                        </span>
+                    </div>
+                </th>
+                <th>
+                    <select class="form-control" id="cuenta" ng-model="vm.cuenta" ng-options="cuenta as cuenta.nombre for cuenta in vm.cuentas | orderBy: 'id' track by cuenta.id" st-search="cuenta">
+                        <option value="">Seleccione</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="search" class="input-sm form-control" st-search="persona" />
+                </th>
+                <th ng-if="vm.showTerminal">
+                    <select class="form-control" id="terminal" ng-model="vm.terminal" ng-options="terminal as terminal.nombre for terminal in vm.terminales | orderBy: 'id' track by terminal.id" st-search="terminal">
+                        <option value="">Seleccione</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="search" class="input-sm form-control" st-search="descripcion" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="movimiento in vm.displayCollection" ng-class="{'success': movimiento.__class == 'Ingreso', 'danger': movimiento.__class == 'Egreso'}">
+                <td>
+                    {{movimiento.id}}
+                </td>
+                <td class="text-right">
+                    {{movimiento.monto | myAmount}}
+                </td>
+                <td>
+                    {{movimiento.__class | capitalize}}
+                </td>
+                <td>
+                    {{movimiento.fecha | myDateTime}}
+                </td>
+                <td>
+                    {{movimiento.cuenta.nombre}}
+                </td>
+                <td>
+                    {{movimiento.usuario.persona | persona}}
+                </td>
+                <td ng-if="vm.showTerminal">
+                    {{movimiento._caja.terminal.nombre}}
+                </td>
+                <td>
+                    {{movimiento.descripcion}}
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+			<tr>
+				<td colspan="8" class="text-center">
+					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="displayedPages"></div>
+				</td>
+			</tr>
+		</tfoot>
+    </table>
+</div>

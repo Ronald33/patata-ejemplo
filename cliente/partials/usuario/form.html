@@ -1,0 +1,48 @@
+<div class="page-header clearfix">
+    <h1 class="pull-left header-reset page-title">{{vm.action}} usuario</h1>
+</div>
+
+<form name="form" ng-submit="vm.guardar()">
+
+    <div class="form-group">
+        <label for="persona" class="control-label">Persona<span class="text-danger">*</span></label>
+        <ipersona ng-if="_usuario.__class == 'Administrador'" persona="vm.usuario.persona" is-required="true" autofocus="true"></ipersona>
+        <input ng-if="_usuario.__class == 'Operador'" type="text" name="persona" id="persona" class="form-control" ng-value="vm.usuario.persona | personaWithDocument" disabled />
+    </div>
+
+    <div class="form-group">
+        <label for="usuario" class="control-label">Usuario<span class="text-danger">*</span></label>
+        <input type="text" name="usuario" id="usuario" class="form-control" ng-model="vm.usuario.usuario" minlength="2" maxlength="16" is-alphanumeric required autofocus />
+    </div>
+
+    <div class="form-group" ng-if="_usuario.__class == 'Administrador'">
+        <label for="tipo" class="control-label">
+            Tipo<span class="text-danger">*</span>
+        </label>
+
+        <div class="btn-group btn-group-justified">
+            <label ng-repeat="tipo in vm.tipos_de_usuario" class="btn btn-default text-capitalize" ng-model="vm.usuario.tipo" uib-btn-radio="'{{tipo}}'">{{tipo | capitalize}}</label>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="vm.action == 'Editar'">
+        <button type="button" class="btn btn-warning btn-block" ng-click="vm.cambiarContrasenha = !vm.cambiarContrasenha">{{vm.cambiarContrasenha ? 'Mantener' : 'Cambiar'}} contraseña</button>
+    </div>
+
+    <div ng-if="vm.action == 'Agregar' || vm.cambiarContrasenha">
+        <div class="form-group">
+            <label for="contrasenha" class="control-label">Contraseña<span class="text-danger">*</span></label>
+            <input type="password" name="contrasenha" id="contrasenha" class="form-control" ng-model="vm.usuario.contrasenha" minlength="6" required />
+        </div>
+        
+        <div class="form-group">
+            <label for="contrasenha" class="control-label">Repita la contraseña<span class="text-danger">*</span></label>
+            <input type="password" name="contrasenha2" id="contrasenha2" class="form-control" ng-model="contrasenha2" is-equal-to="vm.usuario.contrasenha" disable-validation-message="" required />
+            <span class="help-block" ng-show="form.contrasenha2.$invalid && form.contrasenha2.$dirty">Las contraseñas no coinciden</span>
+        </div>
+    </div>
+    <div class="clearfix mb-3">
+        <button type="button" class="btn btn-default pull-left" go-back>Atras</button>
+        <button type="submit" class="btn btn-success pull-right" ng-disabled="form.$invalid">Guardar</button>
+    </div>
+</form>

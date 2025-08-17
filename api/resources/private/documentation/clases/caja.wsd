@@ -1,0 +1,53 @@
+@startuml caja
+
+title
+Módulo de caja
+end title
+scale 1
+
+class Administrador ##[dashed]
+class Usuario ##[dashed]
+class Terminal ##[dashed]
+
+abstract class Movimiento
+{
+    #monto: Integer
+    #fecha: Datetime
+    #descripcion: String
+}
+
+class Ingreso {}
+
+class Egreso {}
+
+class Cuenta
+{
+    -nombre: String
+}
+
+class Caja
+{
+    -apertura: Datetime
+    -cierre: Datetime
+    -aperturaUsuario: Administrador
+    -cierreUsuario: Administrador
+}
+
+class Saldo
+{
+    -inicial: Integer
+    -actual: Integer
+}
+
+Movimiento --> Usuario
+Ingreso --|> Movimiento
+Egreso --|> Movimiento
+Movimiento --> Cuenta
+Caja --> Administrador
+Saldo *--> Caja
+Saldo --> Cuenta
+Caja --> Terminal
+Movimiento o--> Caja
+Administrador --|> Usuario
+
+@enduml

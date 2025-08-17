@@ -1,0 +1,40 @@
+@startuml movimientos
+
+title
+Módulo de movimientos
+end title
+scale 1
+
+left to right direction
+
+"Administrador" as Administrador
+"Operador" as Operador
+
+rectangle {
+
+    package "Gestión de cajas" {
+        "Listar cajas" as (listar-cajas)
+        "Abrir y cerrar cajas" as (abrir-cerrar-cajas)
+    }
+
+    package "Gestión de movimientos" {
+        "Listar movimientos" as (listar-movimientos)
+        "Registrar movimiento" as (registrar-movimiento)
+    }
+}
+
+note right of (listar-movimientos)
+    El Administrador puede ver todos los movimientos.
+    El Operador solo puede sus propios movimientos.
+end note
+
+Administrador --> (listar-cajas)
+Administrador --> (abrir-cerrar-cajas)
+
+Administrador --> (listar-movimientos)
+Administrador --> (registrar-movimiento)
+
+Operador --> (listar-movimientos)
+Operador --> (registrar-movimiento)
+
+@enduml

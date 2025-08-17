@@ -1,0 +1,56 @@
+<form name="form" ng-submit="vm.guardar()">
+    <div class="modal-header bg-primary">
+        <h3 class="modal-title text-white">{{vm.action}} persona</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="nombres" class="control-label">
+                Nombres<span class="text-danger">*</span>
+            </label>
+            <input type="text" name="nombres" id="nombres" class="form-control" ng-model="vm.persona.nombres" minlength="1" maxlength="128" required />
+            
+        </div>
+        <div class="form-group">
+            <label for="apellidos" class="control-label">
+                Apellidos<span class="text-danger">*</span>
+            </label>
+            <input type="text" name="apellidos" id="apellidos" class="form-control" ng-model="vm.persona.apellidos" minlength="1" maxlength="128" required />
+            
+        </div>
+        <div class="form-group">
+            <label for="documento" class="control-label">
+                Documento<span class="text-danger">*</span>
+            </label>
+            <input type="text" name="documento" id="documento" class="form-control" ng-model="vm.persona.documento" minlength="1" maxlength="16" required />
+            
+        </div>
+        <div class="form-group">
+            <label for="email" class="control-label">
+                Email
+            </label>
+            <input type="text" name="email" id="email" class="form-control" ng-model="vm.persona.email" minlength="1" maxlength="64" />
+            
+        </div>
+        <div class="form-group">
+            <label for="telefono" class="control-label">
+                Telefono
+            </label>
+            <input type="text" name="telefono" id="telefono" class="form-control" ng-model="vm.persona.telefono" minlength="1" maxlength="16" />
+            
+        </div>
+        <div class="form-group">
+            <label for="direccion" class="control-label">
+                Direccion
+            </label>
+            <input type="text" name="direccion" id="direccion" class="form-control" ng-model="vm.persona.direccion" minlength="1" maxlength="128" />
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left" ng-click="vm.cerrar()">Cerrar</button>
+        <button type="submit" class="btn btn-success pull-right" ng-disabled="form.$invalid">Guardar</button>
+    </div>
+    <div class="container-fluid">
+        <show-errors errors="vm.errors"></show-errors>
+    </div>
+</form>
