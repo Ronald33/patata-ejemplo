@@ -3,8 +3,8 @@
 
     angular.module('app').controller('MovimientoFormController', movimientoFormController);
 
-    movimientoFormController.$inject = ['$uibModalInstance', 'ResMovimiento', 'Helper', 'ResExtras', 'ResCaja', 'ResCuenta', '$rootScope'];
-    function movimientoFormController($uibModalInstance, ResMovimiento, Helper, ResExtras, ResCaja, ResCuenta, $rootScope)
+    movimientoFormController.$inject = ['$uibModalInstance', 'ResMovimiento', 'Helper', 'ResExtras', 'ResTerminal', 'ResCuenta', '$rootScope'];
+    function movimientoFormController($uibModalInstance, ResMovimiento, Helper, ResExtras, ResTerminal, ResCuenta, $rootScope)
     {
         var vm = this;
 
@@ -26,8 +26,8 @@
 
             if($rootScope._usuario.__class == 'Administrador')
             {
-                ResCaja.query({filter: 'abiertas'}).$promise.then(function(response) {
-                    vm.cajas = response.data;
+                ResTerminal.query({filter: 'abiertas'}).$promise.then(function(response) {
+                    vm.terminales = response.data;
                 });
             }
             
@@ -36,10 +36,10 @@
 
         function updateCuentas()
         {
-            var params = {filter: 'caja'};
+            var params = {filter: 'terminal'};
             if($rootScope._usuario.__class == 'Administrador')
             {
-                if(vm.caja && vm.caja.id) { params.caja_id = vm.caja.id; }
+                if(vm.terminal && vm.terminal.id) { params.terminal_id = vm.terminal.id; }
                 else { vm.cuentas = []; return; }
             }
             
@@ -53,7 +53,7 @@
         {
             var item = angular.copy(vm.movimiento);
             item.monto *= 100;
-            if($rootScope._usuario.__class == 'Administrador') { item.caja = vm.caja; }
+            if($rootScope._usuario.__class == 'Administrador') { item.terminal = vm.terminal; }
             Helper.guardar_modal(ResMovimiento, item, 'El movimiento fue guardado correctamente', 'El movimiento no pudo ser guardado', vm, $uibModalInstance);
         }
     }

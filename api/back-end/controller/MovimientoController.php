@@ -52,32 +52,21 @@ class MovimientoController
         if($this->validator->hasErrors()) { $this->view->j400($this->validator->getInputsWithErrors()); }
         $movimiento = MovimientoHelper::castToMovimiento($payload);
         $user = Helper::getCurrentUser();
-        $caja = ($user instanceof Administrador) ? MovimientoHelper::getCaja($payload) : Helper::getCurrentCaja();
-        if(!$this->dao->insert($movimiento, $caja->getId())) { $this->view->j500(); }
+        $terminal = ($user instanceof Administrador) ? Helper::cast('Terminal', $payload->terminal) : $user->getTerminal();
+        Repository::getDB()->beginTransaction();
+        $cajaDAO = new CajaDAO();
+        $caja = $cajaDAO->selectByTerminalIdAndBlock($terminal->getId(), true, false);
+        if($caja->getCierre() != NULL) { Repository::getDB()->rollback(); $this->view->j500(); }
+        $saldoDAO = new SaldoDAO();
+        $saldo = $saldoDAO->selectByCuentaIdAndBlock($caja->getId(), $movimiento->getCuenta()->getId());
+        $monto = $movimiento->getMonto();
+        $success = $this->dao->insert($movimiento, $caja->getId());
+        $actual = $saldo->getActual();
+        $actual += $movimiento instanceof Ingreso ? $monto : -$monto;
+        $saldo->setActual($actual);
+        $success = $success && $saldoDAO->update($saldo);
+        if(!$success) { Repository::getDB()->rollback(); $this->view->j500(); }
+        Repository::getDB()->commit();
         $this->view->j201($movimiento);
-    }
-
-    public function put($id = null)
-    {
-        if($id == null) { $this->view->j501(); }
-        if(!$this->dao->selectById($id)) { $this->view->j404(); }
-
-        $payload = Helper::getPayload();
-        MovimientoHelper::fillValidator($this->validator, $payload, $id);
-        if($this->validator->hasErrors()) { $this->view->j400($this->validator->getInputsWithErrors()); }
-        $movimiento = MovimientoHelper::castToMovimiento($payload, $id);
-        $movimiento->setId($id);
-        if(!$this->dao->update($movimiento)) { $this->view->j500(); }
-        $this->view->j200($movimiento);
-    }
-
-    public function delete($id = null)
-    {
-        if($id == null) { $this->view->j501(); }
-        if($id == 1) { $this->view->j423(); }
-        if(!$this->dao->selectById($id)) { $this->view->j404(); }
-
-        if(!$this->dao->delete($id)) { $this->view->j500(); }
-        $this->view->j204();
     }
 }

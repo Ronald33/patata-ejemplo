@@ -55,12 +55,17 @@ abstract class Helper extends PatataHelper
 		return $usuario;
 	}
 
-	public static function getCurrentCaja()
+	public static function getCajaByTerminalId($terminal_id, $cast = true, $set_sub_items = true)
+	{
+		$cajaDAO = new CajaDAO();
+		return $cajaDAO->selectByTerminalId($terminal_id, $cast, $set_sub_items);
+	}
+
+	public static function getCurrentCaja($cast = true, $set_sub_items = true)
 	{
 		$user = self::getCurrentUser();
 		assert($user instanceof Operador);
-		$cajaDAO = new CajaDAO();
-		return $cajaDAO->selectByTerminalId($user->getTerminal()->getId());
+		return self::getCajaByTerminalId($user->getTerminal()->getId(), $cast, $set_sub_items);
 	}
 
 	public static function validatePagination($validator)

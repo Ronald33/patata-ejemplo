@@ -20,15 +20,6 @@ class CajaController
             if($result) { $this->view->j200($result); }
             else { $this->view->j404(); }
         }
-        else if(isset($_GET['filter']))
-        {
-            switch($_GET['filter'])
-            {
-                case 'abiertas': $result = $this->dao->selectAbiertas(); break;
-                default: $this->view->j404();
-            }
-            $this->view->j200($result);
-        }
         else { $this->view->j200($this->dao->selectAll()); }
     }
 

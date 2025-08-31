@@ -3,8 +3,8 @@
 
     angular.module('app').controller('LoginController', loginController);
     
-    loginController.$inject = ['Auth', 'ResCaja'];
-    function loginController(Auth, ResCaja)
+    loginController.$inject = ['Auth', 'ResTerminal'];
+    function loginController(Auth, ResTerminal)
     {
         var vm = this;
         // vm.terminal = { id: 1 };
@@ -15,8 +15,8 @@
 
         function _init()
         {
-            ResCaja.query({filter: 'abiertas'}).$promise.then(function(response){
-                vm.cajas = response.data;
+            ResTerminal.query({filter: 'abiertas'}).$promise.then(function(response){
+                vm.terminales = response.data;
             });
         }
         

@@ -47,12 +47,16 @@ class TerminalDAO
         return ['data' => $results, 'total' => sizeof($results)];
     }
 
-    public function selectCerradas($cast = false)
+    private function selectPorEstado($abiertas, $cast = false)
     {
-        $results = Repository::getDB()->select(self::$table, self::getSelectedFields(), 'term_habilitado = 1 AND term_id NOT IN (SELECT caja_term_id FROM cajas WHERE caja_cierre IS NULL)');
+        $state = $abiertas ? '' : 'NOT';
+        $results = Repository::getDB()->select(self::$table, self::getSelectedFields(), 'term_habilitado = 1 AND term_id ' . $state . ' IN (SELECT caja_term_id FROM cajas WHERE caja_cierre IS NULL)');
         array_walk($results, [$this, 'processRow'], ['cast' => $cast]);
         return ['data' => $results, 'total' => sizeof($results)];
     }
+
+    public function selectAbiertas($cast = false) { return $this->selectPorEstado(true, $cast); }
+    public function selectCerradas($cast = false) { return $this->selectPorEstado(false, $cast); }
 
     public function selectById($id, $cast = true)
     {

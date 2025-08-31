@@ -71,7 +71,7 @@ class MyMiddlewareRest implements core\middleware\Middleware
             }
             else if($class == 'Cuenta')
             {
-                if($method == 'get' && isset($_GET['filter']) && $_GET['filter'] == 'caja') { return true; }
+                if($method == 'get' && isset($_GET['filter']) && $_GET['filter'] == 'terminal') { return true; }
             }
             else if($class == 'Movimiento')
             {

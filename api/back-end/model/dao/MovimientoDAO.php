@@ -154,16 +154,9 @@ class MovimientoDAO
         $db->insert(self::$table, self::getFieldsToInsert($movimiento, $caja_id));
         $movimiento->setId($db->getLastInsertId());
 
-        $saldoDAO = new SaldoDAO();
-        $saldoDAO->updateActual($movimiento, $caja_id);
+        // $saldoDAO = new SaldoDAO();
+        // $saldoDAO->updateActual($movimiento, $caja_id);
 
         return true;
     }
-
-    public function update(Movimiento $movimiento, $caja_id = NULL)
-    {
-        return Repository::getDB()->update(self::$table, self::getFieldsToInsert($movimiento, $caja_id), 'movi_id = :id', ['id' => $movimiento->getId()]);
-    }
-
-    public function delete($id) { return Repository::getDB()->delete(self::$table, 'movi_id = :id', ['id' => $id]); }
 }

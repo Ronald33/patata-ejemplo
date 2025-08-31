@@ -24,13 +24,18 @@ class CuentaController
         {
             switch($_GET['filter'])
             {
-                case 'caja':
+                case 'terminal':
                     $user = Helper::getCurrentUser();
                     if($user instanceof Operador) { $this->view->j200($this->dao->selectByCajaId(Helper::getCurrentCaja()->getId())); }
                     else
                     {
-                        if(isset($_GET['caja_id']) && Helper::isPositiveInteger($_GET['caja_id'])) { $this->view->j200($this->dao->selectByCajaId($_GET['caja_id'])); }
+                        if(isset($_GET['terminal_id']))
+                        {
+                            $caja = Helper::getCajaByTerminalId($_GET['terminal_id']);
+                            if($caja) { $this->view->j200($this->dao->selectByCajaId($caja->getId())); }
+                        }
                     }
+                break;
             }
             $this->view->j404();
         }

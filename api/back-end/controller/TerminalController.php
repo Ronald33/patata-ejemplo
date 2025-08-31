@@ -24,6 +24,7 @@ class TerminalController
         {
             switch($_GET['filter'])
             {
+                case 'abiertas': $result = $this->dao->selectAbiertas(); break;
                 case 'cerradas': $result = $this->dao->selectCerradas(); break;
                 default: $this->view->j404();
             }

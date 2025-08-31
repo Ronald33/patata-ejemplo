@@ -52,12 +52,20 @@ class SaldoDAO
         if($cast) { $row = SaldoHelper::castToSaldo($row, $row->id); }
     }
 
-    public function selectByCajaid($caja_id, $cast = true, $set_sub_items = true)
+    public function selectByCajaId($caja_id, $cast = true, $set_sub_items = true)
     {
         $db = Repository::getDB();
         $results = $db->select(self::$table, self::getSelectedFields(), 'sald_caja_id = :caja_id', ['caja_id' => $caja_id], 'ORDER BY ' . self::$pk . ' DESC');
         array_walk($results, [$this, 'processRow'], ['cast' => $cast, 'set_sub_items' => $set_sub_items]);
         return ['data' => $results, 'total' => sizeof($results)];
+    }
+
+    public function selectByCuentaIdAndBlock($caja_id, $cuenta_id, $cast = true, $set_sub_items = true)
+    {
+        $db = Repository::getDB();
+        $result = $db->selectOne(self::$table, self::getSelectedFields(), 'sald_caja_id = :caja_id AND sald_cuen_id = :cuenta_id', ['caja_id' => $caja_id, 'cuenta_id' => $cuenta_id], 'FOR UPDATE');
+        if($result) { $this->processRow($result, 0, ['cast' => $cast, 'set_sub_items' => $set_sub_items]); }
+        return $result;
     }
 
     public function insert(Saldo $saldo)
@@ -82,9 +90,8 @@ class SaldoDAO
         return true;
     }
 
-    public function updateActual(Movimiento $movimiento, $caja_id)
+    public function update(Saldo $saldo)
     {
-        $db = Repository::getDB();
-        $db->query('UPDATE saldos SET sald_actual = sald_actual ' . (get_class($movimiento) == 'Ingreso' ? '+' : '-') .' :monto WHERE sald_caja_id = :caja_id AND sald_cuen_id = :cuen_id', ['caja_id' => $caja_id, 'cuen_id' => $movimiento->getCuenta()->getId(), 'monto' => $movimiento->getMonto()]);
+        return Repository::getDB()->update(self::$table, self::getFieldsToInsert($saldo), 'sald_id = :id', ['id' => $saldo->getId()]);
     }
 }

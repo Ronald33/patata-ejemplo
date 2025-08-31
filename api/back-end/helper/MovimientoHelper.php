@@ -59,8 +59,8 @@ abstract class MovimientoHelper
         $user = Helper::getCurrentUser();
         if($user instanceof Administrador)
         {
-            $cajaId = (isset($data->caja) && isset($data->caja->id)) ? $data->caja->id : NULL;
-            $validator->addInput('Caja', $cajaId)->addRule(['rowExists', 'Ingrese un caja válido'], 'cajas', 'caja_id');
+            $terminalId = (isset($data->terminal) && isset($data->terminal->id)) ? $data->terminal->id : NULL;
+            $validator->addInput('Terminal', $terminalId)->addRule(['rowExists', 'Ingrese una terminal válida'], 'terminales', 'term_id');
         }
 
         if($id != NULL) // For edit cases
@@ -68,8 +68,6 @@ abstract class MovimientoHelper
 
         }
     }
-
-    public static function getCaja($object) { return Helper::cast('Caja', $object->caja); }
 
     public static function validatePaginationAndSort($validator)
     {

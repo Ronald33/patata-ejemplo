@@ -72,13 +72,6 @@ class CajaDAO
         return ['data' => $results, 'total' => sizeof($results)];
     }
 
-    public function selectAbiertas($cast = true, $set_sub_items = true)
-    {
-        $results = Repository::getDB()->select(self::$table, self::getSelectedFields(), 'caja_cierre IS NULL', [], 'ORDER BY ' . self::$pk . ' DESC');
-        array_walk($results, [$this, 'processRow'], ['cast' => $cast, 'set_sub_items' => $set_sub_items]);
-        return ['data' => $results, 'total' => sizeof($results)];
-    }
-
     public function selectById($id, $cast = true, $set_sub_items = true)
     {
         $result = Repository::getDB()->selectOne(self::$table, self::getSelectedFields(), 'caja_id = :id', ['id' => $id]);
@@ -88,7 +81,14 @@ class CajaDAO
 
     public function selectByTerminalId($term_id, $cast = true, $set_sub_items = true)
     {
-        $result = Repository::getDB()->selectOne(self::$table, self::getSelectedFields(), 'caja_term_id = :id AND caja_cierre IS NULL', ['id' => $term_id]);
+        $result = Repository::getDB()->selectOne(self::$table, self::getSelectedFields(), 'caja_term_id = :id', ['id' => $term_id]);
+        if($result) { $this->processRow($result, 0, ['cast' => $cast, 'set_sub_items' => $set_sub_items]); }
+        return $result;
+    }
+
+    public function selectByTerminalIdAndBlock($term_id, $cast = true, $set_sub_items = true)
+    {
+        $result = Repository::getDB()->selectOne(self::$table, self::getSelectedFields(), 'caja_term_id = :id', ['id' => $term_id], 'FOR UPDATE');
         if($result) { $this->processRow($result, 0, ['cast' => $cast, 'set_sub_items' => $set_sub_items]); }
         return $result;
     }

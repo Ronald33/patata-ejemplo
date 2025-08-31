@@ -25,7 +25,7 @@
             if($rootScope._usuario.__class == 'Operador')
             {
                 vm.showTerminal = false;
-                cuentaParams.filter = 'caja';
+                cuentaParams.filter = 'terminal';
                 movimientoParams.filter = 'mode-operador';
             }
             else

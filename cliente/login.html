@@ -10,7 +10,7 @@
 					<form name="form" ng-submit="vm.login()">
 						<fieldset ng-disabled="isLoading()">
 							<div class="form-group">
-								<select class="form-control" id="terminal" ng-model="vm.terminal" ng-options="caja.terminal as caja.terminal.nombre for caja in vm.cajas | orderBy: 'id' track by caja.terminal.id" ng-disabled="false">
+								<select class="form-control" id="terminal" ng-model="vm.terminal" ng-options="terminal as terminal.nombre for terminal in vm.terminales | orderBy: 'id' track by terminal.id" ng-disabled="false">
 									<option value="">Seleccione un terminal</option>
 								</select>
 							</div>

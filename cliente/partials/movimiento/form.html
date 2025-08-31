@@ -10,11 +10,11 @@
             </div>
         </div>
         <div class="form-group" ng-if="_usuario.__class == 'Administrador'">
-            <label for="caja" class="control-label">
-                Caja<span class="text-danger">*</span>
+            <label for="terminal" class="control-label">
+                Terminal<span class="text-danger">*</span>
             </label>
-            <select name="caja" id="caja" class="form-control" ng-model="vm.caja" ng-options="caja as caja.terminal.nombre for caja in vm.cajas track by caja.id" required ng-change="vm.updateCuentas()">
-                <option value="">Seleccione una caja</option>
+            <select name="terminal" id="terminal" class="form-control" ng-model="vm.terminal" ng-options="terminal as terminal.nombre for terminal in vm.terminales track by terminal.id" required ng-change="vm.updateCuentas()">
+                <option value="">Seleccione una terminal</option>
             </select>
         </div>
         <div class="form-group">
