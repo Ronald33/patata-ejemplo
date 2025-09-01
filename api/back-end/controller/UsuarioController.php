@@ -55,6 +55,7 @@ class UsuarioController
         $usuario = UsuarioHelper::castToUsuario($payload);
         Repository::getDB()->beginTransaction();
         if(!$this->dao->insert($usuario)) { $this->view->j500(); }
+        Helper::saveLog($this->dao::$table, 'INSERT', $usuario);
         Repository::getDB()->commit();
         $this->view->j201($usuario);
     }
@@ -71,6 +72,7 @@ class UsuarioController
         $usuario->setId($id);
         Repository::getDB()->beginTransaction();
         if(!$this->dao->update($usuario)) { $this->view->j500(); }
+        Helper::saveLog($this->dao::$table, 'UPDATE', $usuario);
         Repository::getDB()->commit();
         $this->view->j200($usuario);
     }
