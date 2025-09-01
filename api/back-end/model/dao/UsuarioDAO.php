@@ -1,7 +1,7 @@
 <?php
 class UsuarioDAO
 {
-    private static $table = 'usuarios';
+    public static $table = 'usuarios';
     private static $pk = 'usua_id';
 
     public static function getSelectedFields($alias = NULL, $prefix = '')
@@ -100,15 +100,12 @@ class UsuarioDAO
         $db = Repository::getDB();
         $db->insert(self::$table, self::getFieldsToInsert($usuario));
         $usuario->setId($db->getLastInsertId());
-        Helper::saveLog(self::$table, __METHOD__, $usuario);
         return true;
     }
 
     public function update(Usuario $usuario)
     {
-        Repository::getDB()->update(self::$table, self::getFieldsToInsert($usuario), 'usua_id = :id', ['id' => $usuario->getId()]);
-        Helper::saveLog(self::$table, __METHOD__, $usuario);
-        return true;
+        return Repository::getDB()->update(self::$table, self::getFieldsToInsert($usuario), 'usua_id = :id', ['id' => $usuario->getId()]);
     }
 
     public function delete($id) { return Repository::getDB()->delete(self::$table, 'usua_id = :id', ['id' => $id]); }
