@@ -23,14 +23,14 @@
 			templateUrl: 'admin.html',
 			abstract: true
 		})
-		.state('admin.cuenta_lista', {
+		.state('admin.cuenta_list', {
 			url: '/cuenta/lista',
 			title: 'Lista de cuentas',
 			templateUrl: 'partials/cuenta/list.html',
 			controller: 'CuentaListController',
 			... global_config
 		})
-		.state('admin.usuario_lista', {
+		.state('admin.usuario_list', {
 			url: '/usuario/lista',
 			title: 'Lista de usuarios',
 			templateUrl: 'partials/usuario/list.html',
@@ -45,21 +45,21 @@
 			controller: 'UsuarioFormController',
 			... global_config
 		})
-		.state('admin.terminal_lista', {
+		.state('admin.terminal_list', {
 			url: '/terminal/lista',
 			title: 'Lista de terminales',
 			templateUrl: 'partials/terminal/list.html',
 			controller: 'TerminalListController',
 			... global_config
 		})
-		.state('admin.caja_lista', {
+		.state('admin.caja_list', {
 			url: '/caja/lista',
 			title: 'Lista de cajas',
 			templateUrl: 'partials/caja/list.html',
 			controller: 'CajaListController',
 			... global_config
 		})
-		.state('admin.movimiento_lista', {
+		.state('admin.movimiento_list', {
 			url: '/movimiento/lista',
 			title: 'Lista de movimientos',
 			templateUrl: 'partials/movimiento/list.html',
