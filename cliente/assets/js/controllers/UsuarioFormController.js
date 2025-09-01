@@ -38,7 +38,7 @@
         function guardar()
         {
             var item = angular.copy(vm.usuario);
-            Helper.guardar(ResUsuario, item, 'El usuario fue guardado correctamente', $rootScope._usuario.__class == 'Administrador' ? 'admin.usuario_lista' : 'admin.movimiento_lista', 'El usuario no pudo ser guardado', vm);
+            Helper.guardar(ResUsuario, item, 'El usuario fue guardado correctamente', $rootScope._usuario.__class == 'Administrador' ? 'admin.usuario_list' : 'admin.movimiento_list', 'El usuario no pudo ser guardado', vm);
         }
     }
 })();
