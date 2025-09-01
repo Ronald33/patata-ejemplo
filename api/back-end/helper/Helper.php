@@ -104,13 +104,13 @@ abstract class Helper extends PatataHelper
 	{
 		$log = new Log();
 		$log->setTabla($table);
-		$log->setAccion(substr($method, strrpos($method, '::') + 2));
+		$log->setAccion($method);
 		$log->setRegistro(json_encode($data));
 		$log->setFecha(Helper::getCurrentTimestamp());
 		$log->setUsuario(Helper::getCurrentUser());
 		if(isset($_SERVER['REMOTE_ADDR'])) { $log->setIp($_SERVER['REMOTE_ADDR']); }
 
 		$logDao = new LogDAO();
-		$logDao->insert($log);
+		return $logDao->insert($log);
 	}
 }
