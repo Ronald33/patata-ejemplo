@@ -154,9 +154,6 @@ class MovimientoDAO
         $db->insert(self::$table, self::getFieldsToInsert($movimiento, $caja_id));
         $movimiento->setId($db->getLastInsertId());
 
-        // $saldoDAO = new SaldoDAO();
-        // $saldoDAO->updateActual($movimiento, $caja_id);
-
         return true;
     }
 }
