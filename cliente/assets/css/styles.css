@@ -81,6 +81,10 @@ nav.navbar ul.nav li.dropdown b.caret { margin-left: 4px; }
 .text-dark      { color: #222 !important; }
 .text-light     { color: #eee !important; }
 
+.font-weight-bold {
+  font-weight: 700 !important; /* Negrita */
+}
+
 /* Modal */
 .modal-xl { width: 90%; }
 
